@@ -14,7 +14,7 @@ import { getInputFileLines } from '../common/file';
 // solvePart1: get max sum of calories for given calories
 function solvePart1(calories: string[]): number {
   const caloriesSums = getCaloriesSums(calories);
-  const maxSumCalories = caloriesSums.reduce(maxFunc, 0);
+  const maxSumCalories = caloriesSums.reduce(getMax, 0);
 
   return maxSumCalories;
 }
@@ -23,7 +23,7 @@ function solvePart1(calories: string[]): number {
 function solvePart2(calories: string[]): number {
   const caloriesSums = getCaloriesSums(calories);
   const topThree = pickTopItems(caloriesSums, 3);
-  const sum = topThree.reduce(sumFunc);
+  const sum = topThree.reduce(getSum);
 
   return sum;
 }
@@ -34,7 +34,7 @@ function solvePart2(calories: string[]): number {
 
 function getCaloriesSums(calories: string[]): number[] {
   const caloriesLists = getCaloriesLists(calories);
-  const caloriesSums = caloriesLists.map(list => list.reduce(sumFunc));
+  const caloriesSums = caloriesLists.map(list => list.reduce(getSum));
 
   return caloriesSums;
 }
@@ -51,7 +51,7 @@ function getCaloriesLists(calories: string[]): number[][] {
  */
 
 function pickTopItems<T>(array: T[], length: number): T[] {
-  const sorted = [...array].sort(sortInIncreasingOrderCompareFunc);
+  const sorted = [...array].sort(compareToSortInIncreasingOrder);
   const topItems = sorted.slice(-3);
 
   return topItems;
@@ -72,14 +72,14 @@ function sliceByPredicate<T>(array: T[], predicate: (element: T) => boolean): T[
  * util
  */
 
-function maxFunc(a: number, b: number): number {
+function getMax(a: number, b: number): number {
   return (a > b) ? a : b;
 }
 
-function sumFunc(a: number, b: number): number {
+function getSum(a: number, b: number): number {
   return a + b;
 }
 
-function sortInIncreasingOrderCompareFunc<T>(a: T, b: T): number {
+function compareToSortInIncreasingOrder<T>(a: T, b: T): number {
   return (a < b) ? -1 : (a > b) ? 1 : 0;
 }
