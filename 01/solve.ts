@@ -16,9 +16,9 @@ type CaloriesList = number[];
 // solvePart1: get max sum of calories for given calories
 function solvePart1(calories: string[]): number {
   const caloriesSums: number[] = getCaloriesSums(calories);
-  const maxSumCalories = caloriesSums.reduce(getMax, 0);
+  const max = caloriesSums.reduce(getMax, 0);
 
-  return maxSumCalories;
+  return max;
 }
 
 // solvePart2: get top three sums of calories for given calories
