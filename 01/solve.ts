@@ -30,10 +30,6 @@ function solvePart2(calories: string[]): number {
   return sum;
 }
 
-/*
- * problem-specific
- */
-
 function getCaloriesSums(calories: string[]): number[] {
   const caloriesLists: CaloriesList[] = getCaloriesLists(calories);
   const caloriesSums: number[] = caloriesLists.map(list => list.reduce(getSum));
@@ -47,10 +43,6 @@ function getCaloriesLists(calories: string[]): CaloriesList[] {
 
   return caloriesNumberLists;
 }
-
-/*
- * helper
- */
 
 function pickTopItems<T>(array: T[], length: number): T[] {
   const sorted: T[] = [...array].sort(compareToSortInIncreasingOrder);
@@ -69,10 +61,6 @@ function sliceByPredicate<T>(array: T[], predicate: (element: T) => boolean): T[
 
   return sliced;
 }
-
-/*
- * util
- */
 
 function getMax(a: number, b: number): number {
   return (a > b) ? a : b;
