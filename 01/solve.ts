@@ -46,7 +46,7 @@ function getCaloriesLists(calories: string[]): CaloriesList[] {
 
 function pickTopItems<T>(array: T[], length: number): T[] {
   const sorted: T[] = [...array].sort(compareToSortInIncreasingOrder);
-  const topItems: T[] = sorted.slice(-3);
+  const topItems: T[] = sorted.slice(length);
 
   return topItems;
 }
