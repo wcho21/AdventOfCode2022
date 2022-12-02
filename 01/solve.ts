@@ -1,6 +1,7 @@
 // constraint: write every function in five lines or fewer.
 
-import { readFileSync } from 'fs';
+import { getInputFileName } from '../common/cmdarg';
+import { getInputFileLines } from '../common/file';
 
 (function main() {
   const inputFileName = getInputFileName();
@@ -43,38 +44,6 @@ function getCaloriesLists(calories: string[]): number[][] {
   const caloriesNumberLists = caloriesStringLists.map(list => list.map(Number));
 
   return caloriesNumberLists;
-}
-
-/*
- * command-line arguments
- */
-
-function getInputFileName() {
-  validateCommandLineArguments();
-  
-  return process.argv[2];
-}
-
-function validateCommandLineArguments() {
-  if (process.argv.length <= 2) {
-    throw new Error('missing input file name');
-  }
-}
-
-/*
- * I/O
- */
-
-function getInputFileLines(path: string): string[] {
-  const text = readInputFile(path);
-  const lines = text.trim().split('\n');
-
-  return lines;
-}
-
-function readInputFile(path: string): string {
-  const text = readFileSync(path).toString();
-  return text;
 }
 
 /*

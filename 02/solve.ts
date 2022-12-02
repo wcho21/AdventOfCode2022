@@ -1,4 +1,5 @@
-import { readFileSync } from 'fs';
+import { getInputFileName } from '../common/cmdarg';
+import { getInputFileLines } from '../common/file';
 
 (function main() {
   const inputFileName = getInputFileName();
@@ -91,36 +92,4 @@ function getScoreWithConditions(strategy: string, doWin: (strategy: string) => b
 
 function getSum(a: number, b: number): number {
   return a + b;
-}
-
-/*
- * command-line arguments
- */
-
-function getInputFileName() {
-  validateCommandLineArguments();
-  
-  return process.argv[2];
-}
-
-function validateCommandLineArguments() {
-  if (process.argv.length <= 2) {
-    throw new Error('missing input file name');
-  }
-}
-
-/*
- * I/O
- */
-
-function getInputFileLines(path: string): string[] {
-  const text = readInputFile(path);
-  const lines = text.trim().split('\n');
-
-  return lines;
-}
-
-function readInputFile(path: string): string {
-  const text = readFileSync(path).toString();
-  return text;
 }
