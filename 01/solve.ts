@@ -3,6 +3,8 @@
 import { getInputFileName } from '../common/cmdarg';
 import { getInputFileLines } from '../common/file';
 
+type CaloriesList = number[];
+
 (function main() {
   const inputFileName = getInputFileName();
   const inputLines = getInputFileLines(inputFileName);
@@ -13,7 +15,7 @@ import { getInputFileLines } from '../common/file';
 
 // solvePart1: get max sum of calories for given calories
 function solvePart1(calories: string[]): number {
-  const caloriesSums = getCaloriesSums(calories);
+  const caloriesSums: number[] = getCaloriesSums(calories);
   const maxSumCalories = caloriesSums.reduce(getMax, 0);
 
   return maxSumCalories;
@@ -21,8 +23,8 @@ function solvePart1(calories: string[]): number {
 
 // solvePart2: get top three sums of calories for given calories
 function solvePart2(calories: string[]): number {
-  const caloriesSums = getCaloriesSums(calories);
-  const topThree = pickTopItems(caloriesSums, 3);
+  const caloriesSums: number[] = getCaloriesSums(calories);
+  const topThree: number[] = pickTopItems(caloriesSums, 3);
   const sum = topThree.reduce(getSum);
 
   return sum;
@@ -33,15 +35,15 @@ function solvePart2(calories: string[]): number {
  */
 
 function getCaloriesSums(calories: string[]): number[] {
-  const caloriesLists = getCaloriesLists(calories);
-  const caloriesSums = caloriesLists.map(list => list.reduce(getSum));
+  const caloriesLists: CaloriesList[] = getCaloriesLists(calories);
+  const caloriesSums: number[] = caloriesLists.map(list => list.reduce(getSum));
 
   return caloriesSums;
 }
 
-function getCaloriesLists(calories: string[]): number[][] {
-  const caloriesStringLists = sliceByPredicate(calories, entry => entry === '');
-  const caloriesNumberLists = caloriesStringLists.map(list => list.map(Number));
+function getCaloriesLists(calories: string[]): CaloriesList[] {
+  const caloriesStringLists: string[][] = sliceByPredicate(calories, entry => entry === '');
+  const caloriesNumberLists: CaloriesList[] = caloriesStringLists.map(list => list.map(Number));
 
   return caloriesNumberLists;
 }
@@ -51,8 +53,8 @@ function getCaloriesLists(calories: string[]): number[][] {
  */
 
 function pickTopItems<T>(array: T[], length: number): T[] {
-  const sorted = [...array].sort(compareToSortInIncreasingOrder);
-  const topItems = sorted.slice(-3);
+  const sorted: T[] = [...array].sort(compareToSortInIncreasingOrder);
+  const topItems: T[] = sorted.slice(-3);
 
   return topItems;
 }
