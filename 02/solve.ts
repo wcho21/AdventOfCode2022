@@ -11,9 +11,9 @@ import { getInputFileLines } from '../common/file';
 
 // solvePart1: get total score with part 1 guide
 function solvePart1(strategies: string[]): number {
-  return getTotalScore(strategies, getScoreOfStrategy, getMyHandShape, getScoreOfHandShape);
+  return getTotalScore(strategies, getScoreOfRoundOutcome, getScoreOfHandShape, getMyHandShape);
 
-  function getScoreOfStrategy(strategy: string): number {
+  function getScoreOfRoundOutcome(strategy: string): number {
     return getScoreWithConditions(strategy, isWinStrategy, isDrawStrategy);
   }
 
@@ -29,22 +29,22 @@ function solvePart1(strategies: string[]): number {
     return drawStrategies.some(drawStrategy => drawStrategy === strategy);
   }
 
-  function getMyHandShape(strategy: string): string {
-    return strategy[2];
-  }
-
   function getScoreOfHandShape(handShape: string): number {
     const handShapeToScoreTable = new Map([['X', 1], ['Y', 2], ['Z', 3]]);
 
     return handShapeToScoreTable.get(handShape)!;
   }
+
+  function getMyHandShape(strategy: string): string {
+    return strategy[2];
+  }
 }
 
 // solvePart2: get total score with part 2 guide
 function solvePart2(strategies: string[]): number {
-  return getTotalScore(strategies, getScoreOfStrategy, getMyHandShape, getScoreOfHandShape);
+  return getTotalScore(strategies, getScoreOfRoundOutcome, getScoreOfHandShape, getMyHandShape);
 
-  function getScoreOfStrategy(strategy: string): number {
+  function getScoreOfRoundOutcome(strategy: string): number {
     return getScoreWithConditions(strategy, isWinStrategy, isDrawStrategy);
   }
 
@@ -56,6 +56,12 @@ function solvePart2(strategies: string[]): number {
     return strategy[2] === 'Y';
   };
 
+  function getScoreOfHandShape(handShape: string): number {
+    const handShapeToScoreTable = new Map([['A', 1], ['B', 2], ['C', 3]]);
+
+    return handShapeToScoreTable.get(handShape)!;
+  }
+
   function getMyHandShape(strategy: string): string {
     const strategyToHandShapeTable = new Map([
       ['A X', 'C'], ['B X', 'A'], ['C X', 'B'],
@@ -65,21 +71,15 @@ function solvePart2(strategies: string[]): number {
 
     return strategyToHandShapeTable.get(strategy)!;
   }
-
-  function getScoreOfHandShape(handShape: string): number {
-    const handShapeToScoreTable = new Map([['A', 1], ['B', 2], ['C', 3]]);
-
-    return handShapeToScoreTable.get(handShape)!;
-  }
 }
 
 function getTotalScore(
   strategies: string[],
-  getScoreOfStrategy: (strategy: string) => number,
-  getMyHandShape: (strategy: string) => string,
-  getScoreOfHandShape: (handShape: string) => number
+  getScoreOfRoundOutcome: (strategy: string) => number,
+  getScoreOfHandShape: (handShape: string) => number,
+  getMyHandShape: (strategy: string) => string
 ) {
-  const roundOutcomeScoreSum = strategies.map(getScoreOfStrategy).reduce(getSum);
+  const roundOutcomeScoreSum = strategies.map(getScoreOfRoundOutcome).reduce(getSum);
   const handShapeScoreSum = strategies.map(getMyHandShape).map(getScoreOfHandShape).reduce(getSum);
 
   const totalScore = roundOutcomeScoreSum + handShapeScoreSum;
