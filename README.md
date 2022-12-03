@@ -14,3 +14,7 @@ $ npx ts-node solve.ts <input-file>
 ```
 
 where `<input-file>` is the relative path of the input file from the directory `01`.
+
+Make sure that the input file has [LF][lf-eol-wiki] end of lines.
+
+[lf-eol-wiki]: https://en.wikipedia.org/wiki/Newline#Representation
